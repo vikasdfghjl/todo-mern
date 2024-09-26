@@ -1,0 +1,37 @@
+networks:
+  todo-network:
+    driver: bridge
+
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "4000:4000"
+    restart: always
+    networks:
+      - todo-network
+    # depends_on:
+    #   - database
+    environment:
+      - MONGODB_URI=mongodb+srv://shyvikas63:shyvikas63@cluster0.2a1gfmc.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0  # Optional, if you have a database service
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "5000:80"
+    restart: always
+    networks:
+      - todo-network
+    depends_on:
+      - backend
+
+# # Optional database service
+#   database:
+#     image: postgres:13
+#     restart: always
+#     networks:
+#       - app-network
+#     environment:
+#       - POSTGRES_USER=myuser
+#       - POSTGRES_PASSWORD=mypassword
+#       - POSTGRES_DB=mydb

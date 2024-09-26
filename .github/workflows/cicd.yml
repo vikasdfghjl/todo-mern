@@ -1,16 +1,22 @@
-name: todo-mern CI
+name: todo-mern deployed to EC2
 
 on:
   push:
-    branches: [ "main" ]]
+    branches:
+      - main
 
 jobs:
-
-  build:
-
+  deploy:
     runs-on: self-hosted
-
     steps:
-    - uses: actions/checkout@v4
-    - name: Build the Docker image
-      run: ls
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Deploy using Docker Compose
+        run: |
+          docker-compose up -d --build
+
+      - name: Verify deployment
+        run: |
+          docker ps
+          echo "Deployment successful!"
