@@ -1,0 +1,2 @@
+[aws_instances]
+ubuntu@ec2-13-232-77-74.ap-south-1.compute.amazonaws.com ansible_user=ubuntu ansible_ssh_private_key_file=/mnt/AWServer3-key.pem  ansible_python_interpreter=/usr/bin/python3
