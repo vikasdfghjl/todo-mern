@@ -12,11 +12,16 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Set up Docker Compose
+        run: |
+            DC_PATH=$(which docker-compose)
+            echo "DC_PATH=$DC_PATH" >> $GITHUB_ENV
+
       - name: Deploy using Docker Compose
         run: |
-          /usr/local/bin/docker-compose up -d --build
+          $DC_PATH up -d --build
 
       - name: Verify deployment
         run: |
-          /usr/local/bin/docker ps
+          /usr/bin/docker ps
           echo "Deployment successful!"
