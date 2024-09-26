@@ -13,7 +13,7 @@ function App() {
 
   const fetchTodos = async () => {
     try {
-      const response = await axios.get(`${process.env.BASE_BE_URL}/api/to-do`);
+      const response = await axios.get(`${process.env.BASE_BE_URL}/to-do`);
       setTodos(response.data);
     } catch (error) {
       console.error(error);
@@ -23,7 +23,7 @@ function App() {
   const handleCreate = async (event) => {
     event.preventDefault();
     try {
-      await axios.post(`${process.env.BASE_BE_URL}/api/to-do`, { todo: newTodo });
+      await axios.post(`${process.env.BASE_BE_URL}/to-do`, { todo: newTodo });
       fetchTodos();
       setNewTodo('');
     } catch (error) {
@@ -33,7 +33,7 @@ function App() {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`${process.env.BASE_BE_URL}/api/delete/to-do/${id}`);
+      await axios.delete(`${process.env.BASE_BE_URL}/delete/to-do/${id}`);
       fetchTodos();
     } catch (error) {
       console.error(error);
