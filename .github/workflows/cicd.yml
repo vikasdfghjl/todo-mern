@@ -19,7 +19,7 @@ jobs:
 
       - name: Deploy using Docker Compose
         run: |
-          $DC_PATH up -d --build
+          sudo $DC_PATH up -d --build
 
       - name: Verify deployment
         run: |
