@@ -23,5 +23,5 @@ jobs:
 
       - name: Verify deployment
         run: |
-          /usr/bin/docker ps
+          sudo /usr/bin/docker ps
           echo "Deployment successful!"
