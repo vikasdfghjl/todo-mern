@@ -14,9 +14,9 @@ jobs:
 
       - name: Deploy using Docker Compose
         run: |
-          docker-compose up -d --build
+          /usr/bin/docker-compose up -d --build
 
       - name: Verify deployment
         run: |
-          docker ps
+          /usr/bin/docker ps
           echo "Deployment successful!"
