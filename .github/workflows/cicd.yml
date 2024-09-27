@@ -30,3 +30,7 @@ jobs:
         run: |
           sudo /usr/bin/docker ps
           echo "Deployment successful!"
+
+      - name: restart nginx
+        run: |
+          sudo systemctl restart nginx
