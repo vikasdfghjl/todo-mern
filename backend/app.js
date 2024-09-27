@@ -14,7 +14,7 @@ app.use(cors());
 //app.set("view engine", "ejs")
 
 app.get('/', (req, res) => {
-    res.send("To-Do App | Vikas Singh")
+    res.send("TODO-MERN Development Server is Running")
     //res.sendFile(path.join(__dirname + "/Home.html"))
 })
 
