@@ -1,20 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../css/styles.css'
-require('dotenv').config();
+
+const BASE_URL = import.meta.env.REACT_APP_BASE_BE_URL;
 
 function App() {
   const [todos, setTodos] = useState([]);
   const [newTodo, setNewTodo] = useState('');
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     fetchTodos();
   }, []);
-
   const fetchTodos = async () => {
     try {
-      const response = await axios.get(`https://todo-be.yahanwahan.xyz/api/to-do`);
-      setTodos(response.data);
+      const response = await axios.get(`${BASE_URL}/to-do`);
+      setTodos(response?.data);
     } catch (error) {
       console.error(error);
     }
@@ -23,7 +25,7 @@ function App() {
   const handleCreate = async (event) => {
     event.preventDefault();
     try {
-      await axios.post(`https://todo-be.yahanwahan.xyz/api/to-do`, { todo: newTodo });
+      await axios.post(`${BASE_URL}/to-do`, { todo: newTodo });
       fetchTodos();
       setNewTodo('');
     } catch (error) {
@@ -33,7 +35,7 @@ function App() {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`https://todo-be.yahanwahan.xyz/api/delete/to-do/${id}`);
+      await axios.delete(`${BASE_URL}/delete/to-do/${id}`);
       fetchTodos();
     } catch (error) {
       console.error(error);

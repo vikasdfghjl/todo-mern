@@ -1,25 +1,17 @@
-    # Stage 1: Build the React application
-    FROM node:20-alpine3.19 AS build
+FROM node:20-alpine3.19
 
-    WORKDIR /app
+WORKDIR /app
 
-    COPY package*.json ./
+COPY package.json .
 
-    RUN npm install --cache=/tmp/.npm-cache
+RUN npm install
 
-    COPY . .
+RUN npm i -g serve
 
-    RUN npm run build
+COPY . .
 
-    # Stage 2: Serve the React application
-    FROM nginx:1.27-alpine
+RUN npm run build
 
-    # Copy the built application from Stage 1
-    COPY --from=build /app/dist /usr/share/nginx/html
+EXPOSE 5000
 
-    COPY --from=build /app/nginx.conf /etc/nginx/conf.d/default.conf
-
-    EXPOSE 80
-
-    # Run nginx when container starts
-    CMD ["nginx", "-g", "daemon off;"]
+CMD [ "serve", "-s", "dist", "-p","5000"]
