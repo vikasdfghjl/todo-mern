@@ -1,0 +1,29 @@
+.DB.env
+
+# Frontend directories and files
+./frontend/node_modules
+./frontend/dist
+./frontend/dist-ssr
+./frontend/*.local
+./frontend/.cache
+
+# Backend directories and files
+./backend/node_modules
+./backend/.env
+
+### Terraform ###
+terraform/.terraform/
+terraform/terraform.tfstate
+terraform/terraform.tfstate.backup
+terraform/terraform.tfvars
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?

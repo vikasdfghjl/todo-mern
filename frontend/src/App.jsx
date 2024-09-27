@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../css/styles.css'
 
-const BASE_URL = import.meta.env.REACT_APP_BASE_BE_URL;
+const BASE_URL = import.meta.env.REACT_APP_BASE_BE_URL2;
 
 function App() {
   const [todos, setTodos] = useState([]);
