@@ -22,8 +22,6 @@ services:
     restart: always
     networks:
       - todo-network
-    depends_on:
-      - backend
 
 # # Optional database service
 #   database:
