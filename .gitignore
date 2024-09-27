@@ -1,4 +1,4 @@
-.DB.env
+DB.env
 
 # Frontend directories and files
 ./frontend/node_modules
