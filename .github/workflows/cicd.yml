@@ -12,9 +12,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: create DB.env fike
+      - name: create DB.env file
         run: |
-          echo "$DB_ENV" > DB.env
+          echo "${{ secrets.DB_ENV }}" > DB.env
 
       - name: Set up Docker Compose
         run: |
