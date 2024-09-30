@@ -14,8 +14,7 @@ jobs:
 
       - name: create DB.env file
         run: |
-          touch DB.env
-          echo "${{mongo.$DB_ENV}}" > DB.env
+          echo "${{secrets.DB_ENV}}" > DB.env
           echo "DB.env file created successfully!"
           cat DB.env
 
