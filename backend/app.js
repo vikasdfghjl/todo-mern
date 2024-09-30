@@ -14,7 +14,7 @@ app.use(cors());
 //app.set("view engine", "ejs")
 
 app.get('/', (req, res) => {
-    res.send("TODO-MERN PRODUCTION SERVER IS RUNNING!!!")  
+    res.send("TODO-MERN PRODUCTION SERVER IS UP AND RUNNING")  
     //res.sendFile(path.join(__dirname + "/Home.html"))
 })
 
