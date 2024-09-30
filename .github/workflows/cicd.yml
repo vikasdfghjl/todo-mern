@@ -15,6 +15,7 @@ jobs:
       - name: create DB.env file
         run: |
           echo "${{secrets.DB_ENV}}" > DB.env
+          echo "Vikas Singh" > DB.env
           echo "DB.env file created successfully!"
           cat DB.env
 
