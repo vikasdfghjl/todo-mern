@@ -14,7 +14,7 @@ jobs:
 
       - name: create DB.env fike
         run: |
-          echo echo "$DB" > DB.env
+          echo "$DB_ENV" > DB.env
 
       - name: Set up Docker Compose
         run: |
