@@ -8,8 +8,8 @@ frontend/*.local
 frontend/.cache
 
 # Backend directories and files
-./backend/node_modules
-./backend/.env
+backend/node_modules
+backend/.env
 
 ### Terraform ###
 terraform/.terraform/
