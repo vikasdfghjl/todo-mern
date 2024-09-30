@@ -14,7 +14,9 @@ jobs:
 
       - name: create DB.env file
         run: |
-          echo "${{ secrets.DB_ENV }}" > DB.env
+          echo "$DB_ENV" > DB.env
+          echo "DB.env file created successfully!"
+          cat DB.env
 
       - name: Set up Docker Compose
         run: |
