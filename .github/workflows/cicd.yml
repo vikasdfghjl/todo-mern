@@ -12,6 +12,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: create DB.env fike
+        run: |
+          echo echo "$DB" > DB.env
+
       - name: Set up Docker Compose
         run: |
             DC_PATH=$(which docker-compose)
