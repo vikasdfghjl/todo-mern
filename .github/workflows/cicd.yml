@@ -39,3 +39,7 @@ jobs:
       - name: restart nginx
         run: |
           sudo systemctl restart nginx
+
+      - name: Clearing the env file
+        run: |
+          sudo rm -f DB.env
