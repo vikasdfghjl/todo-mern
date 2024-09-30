@@ -1,11 +1,11 @@
 DB.env
 
 # Frontend directories and files
-./frontend/node_modules/
-./frontend/dist
-./frontend/dist-ssr
-./frontend/*.local
-./frontend/.cache
+frontend/node_modules/
+frontend/dist
+frontend/dist-ssr
+frontend/*.local
+frontend/.cache
 
 # Backend directories and files
 ./backend/node_modules
