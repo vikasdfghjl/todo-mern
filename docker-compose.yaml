@@ -12,8 +12,6 @@ services:
       - todo-network
     # depends_on:
     #   - database
-    # environment:
-    #   - MONGODB_URI=mongodb+srv://shyvikas63:shyvikas63@cluster0.2a1gfmc.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
     env_file:
       - DB.env
 
@@ -27,13 +25,17 @@ services:
     networks:
       - todo-network
 
-# # Optional database service
 #   database:
-#     image: postgres:13
+#     image: mongo:latest
 #     restart: always
 #     networks:
-#       - app-network
+#       - todo-network
 #     environment:
-#       - POSTGRES_USER=myuser
-#       - POSTGRES_PASSWORD=mypassword
-#       - POSTGRES_DB=mydb
+#       - MONGO_INITDB_ROOT_USERNAME=root
+#       - MONGO_INITDB_ROOT_PASSWORD=password
+#       - MONGO_INITDB_DATABASE=admin
+#     volumes:
+#       - mongo-data:/data/db
+
+# volumes:
+#   mongo-data:
