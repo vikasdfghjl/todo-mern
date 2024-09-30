@@ -19,7 +19,7 @@ jobs:
 
       - name: Stop and remove existing containers
         run: |
-          sudo $DC_PATH stop
+          sudo $DC_PATH stop $(sudo $DC_PATH ps -q)
           sudo $DC_PATH rm -f
 
       - name: Deploy using Docker Compose
