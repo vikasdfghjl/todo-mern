@@ -12,12 +12,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: create DB.env file
-        run: |
-          echo "${{secrets.DB_ENV}}" > DB.env
-          echo "Vikas Singh" > DB.env
-          echo "DB.env file created successfully!"
-          cat DB.env
 
       - name: Set up Docker Compose
         run: |
@@ -31,7 +25,7 @@ jobs:
 
       - name: Deploy using Docker Compose
         run: |
-          sudo $DC_PATH up -d --build
+          sudo $DC_PATH up -d --build -e ${{ secrets.DB_ENV }}
 
       - name: Verify deployment
         run: |
