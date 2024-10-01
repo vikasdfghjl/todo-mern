@@ -30,10 +30,6 @@ services:
     restart: always
     networks:
       - todo-network
-    # environment:
-    #   - MONGO_INITDB_ROOT_USERNAME=root
-    #   - MONGO_INITDB_ROOT_PASSWORD=password
-    #   - MONGO_INITDB_DATABASE=admin
     env_file:
       - DB.env
     volumes:

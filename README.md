@@ -7,9 +7,11 @@ Create `DB.env` in the same directory of `docker-compose.yaml` which should cont
 ### Example of `DB.env`
 
 ```env
-MONGODB_URL2=
+MONGODB_URL=MONGODB_URI=mongodb://root:password@database:27017/todo-mern?authSource=admin
 
-
+MONGO_INITDB_ROOT_USERNAME=root
+MONGO_INITDB_ROOT_PASSWORD=password
+MONGO_INITDB_DATABASE=admin
 ```
 
 ```yaml
