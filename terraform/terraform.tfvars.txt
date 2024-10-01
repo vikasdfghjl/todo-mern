@@ -1,0 +1,49 @@
+access_key = "your_access_key"
+secret_key = "your_secret_key"
+
+vpc_id = " "
+region = " "
+availability_zone = " "
+subnet_id = " "
+
+instance_name = "terraform_demo"
+instance_type = "t3a.micro"
+ami_id = "ami-09b0a86a2c84101e1"
+number_of_instances = 1
+
+ami_key_pair_name = " "
+
+volume_type = "gp3"
+volume_size = 9
+
+aws_security_group_name = "terraform-demo-sg"
+
+ingress_rules = [
+  {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  },
+  {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  },
+  {
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+]
+
+egress_rules = [
+  {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+]
