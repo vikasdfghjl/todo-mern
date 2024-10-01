@@ -2,7 +2,7 @@
 
 ## Docker
 
-Create `DB.env` in the same directory of `docker-compose.yaml` which should contain the `MONGODB_URL`
+Create `DB.env` in the same directory of `docker-compose.yaml`
 
 ### Example of `DB.env`
 
@@ -23,6 +23,7 @@ docker-compose up -d
 ## Terraform
 
 Edit `terraform.tfvars.txt` to `terraform.tfvars` and edit the configurations.
+then RUN these commands
 
 ```hcl
 terraform init
