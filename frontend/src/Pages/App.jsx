@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
-import Home from './components/Home';
-import Login from './components/Login';
-import Register from './components/Register';
-import PrivateRoute from './components/PrivateRoute';
-import axiosInstance from './axiosInstance';
-import '../css/styles.css'; // Ensure this import is present to include the spinner styles
+import Home from '../components/Home';
+import Login from '../components/Login';
+import Register from '../components/Register';
+import PrivateRoute from '../components/PrivateRoute';
+import axiosInstance from '../services/axiosInstance';
+import '../styles/styles.css'; // Ensure this import is present to include the spinner styles
 
 function App() {
     const [todos, setTodos] = useState([]);
