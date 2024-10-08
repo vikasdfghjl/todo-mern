@@ -24,21 +24,35 @@ const postToDo = asyncHandler(async (req, res) => {
     }
 });
 
-// Function to fetch all To-Dos for the authenticated user
+// Function to fetch all To-Dos for the authenticated user with pagination
 const getToDo = asyncHandler(async (req, res) => {
-    try {
-        // Fetch To-Do items specific to the authenticated user
-        const allToDo = await ToDoModel.find({ user: req.user.id }).exec();
+  try {
+      const page = parseInt(req.query.page) || 1;
+      const limit = parseInt(req.query.limit) || 10;
+      const skip = (page - 1) * limit;
 
-        if (!allToDo || allToDo.length === 0) {
-            return res.status(404).json({ message: "No To-Do items found" });
-        }
+      // Fetch To-Do items specific to the authenticated user with pagination
+      const allToDo = await ToDoModel.find({ user: req.user.id })
+          .skip(skip)
+          .limit(limit)
+          .exec();
 
-        res.json(allToDo); // Return the list of To-Dos
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: "Error fetching To-Do items" });
-    }
+      const total = await ToDoModel.countDocuments({ user: req.user.id });
+
+      if (!allToDo || allToDo.length === 0) {
+          return res.status(404).json({ message: "No To-Do items found" });
+      }
+
+      res.json({
+          todos: allToDo,
+          total,
+          page,
+          pages: Math.ceil(total / limit),
+      });
+  } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Error fetching To-Do items" });
+  }
 });
 
 // Function to delete a To-Do by ID

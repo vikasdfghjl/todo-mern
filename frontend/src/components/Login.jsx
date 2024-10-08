@@ -21,15 +21,16 @@ const Login = ({ setToken }) => {
     };
 
     return (
-        <div>
-            <h2>Login</h2>
-            <form onSubmit={handleSubmit}>
+        <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+            <h2 className="text-3xl font-bold mb-8">Login</h2>
+            <form onSubmit={handleSubmit} className="bg-white p-6 rounded shadow-md w-full max-w-md">
                 <input
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="Email"
                     required
+                    className="border p-2 rounded w-full mb-4"
                 />
                 <input
                     type="password"
@@ -37,10 +38,11 @@ const Login = ({ setToken }) => {
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="Password"
                     required
+                    className="border p-2 rounded w-full mb-4"
                 />
-                <button type="submit">Login</button>
+                <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded w-full hover:bg-blue-700 transition duration-300">Login</button>
             </form>
-            {error && <p>{error}</p>}
+            {error && <p className="text-red-500 mt-4">{error}</p>}
         </div>
     );
 };
