@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { protect } = require('../middleware/auth');
-const { postToDo, getToDo, deleteToDo } = require('../controllers/todoController');
+const { postToDo, getToDo, deleteToDo } = require('../controller/todoController');
 
 router.post('/to-do', protect, postToDo);
 router.get('/to-do', protect, getToDo);
