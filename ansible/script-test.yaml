@@ -1,0 +1,10 @@
+---
+- name: Ansible Demo
+  hosts: [ec2]
+  become: yes
+
+  tasks:
+    - name: Creating test directory
+      file:
+        path: /home/ubuntu/test
+        state: directory

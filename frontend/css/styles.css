@@ -205,4 +205,45 @@ body {
 
   /* ------------------------ Fetch Button ----------------------------- */
 
- 
+  .welcome-container {
+    display: flex;
+    justify-content: space-between; /* Distribute items to the left and right */
+    align-items: center; /* Center items vertically */
+    color: black;
+    margin-bottom: 20px;
+    font-size: 1.2rem; /* Adjust font size for better responsiveness */
+    font-family: 'Gloria Hallelujah', cursive; /* Use a handwriting font */
+    padding: 10px; /* Add padding for better spacing */
+  }
+
+  .logout-btn {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 8px 16px; /* Adjust padding for better responsiveness */
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .logout-btn:hover {
+    background-color: #ff1a1a;
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .welcome-container {
+      flex-direction: column; /* Stack items vertically on smaller screens */
+      gap: 300px; /* Reduce gap between items */
+      font-size: 1rem; /* Adjust font size for smaller screens */
+    }
+
+    .logout-btn {
+      width: 100%; /* Make button full width on smaller screens */
+      text-align: center; /* Center text */
+    }
+  }
+
+.logout-btn:hover {
+    background-color: #ff1a1a;
+}

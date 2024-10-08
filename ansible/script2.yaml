@@ -1,0 +1,72 @@
+---
+- name: Ansible Demo
+  hosts: [ec2]
+  become: yes
+
+  tasks:
+
+  - name: Update all repos
+    apt: 
+        name: "*"
+        state: latest
+
+
+  - name: Upgrade packages
+    apt:
+      upgrade: safe
+
+  - name: Install dependencies
+    apt:
+      name:
+        - apt-transport-https
+        - ca-certificates
+        - curl
+        - software-properties-common
+        - python3-pip
+      state: present
+
+  - name: uninstalling old versions of docker
+    apt:
+      name:
+        - docker
+        - docker-engine
+        - docker.io
+        - containerd
+        - runc
+      state: absent
+
+  - name: Update all repos
+    apt: 
+        name: "*"
+        state: latest
+
+
+
+  - name: Install Docker
+    shell: |
+      sudo apt-get update
+      sudo apt-get install ca-certificates curl
+      sudo install -m 0755 -d /etc/apt/keyrings
+      sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+      sudo chmod a+r /etc/apt/keyrings/docker.asc
+
+      echo \
+      "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+      $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+      sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+  - name: Update all repos
+    apt: 
+        name: "*"
+        state: latest
+
+
+  - name: Install Docker Compose
+    shell: |
+      sudo apt install docker-compose -y
+
+
+  - name: Install Nginx
+    apt:
+      name: nginx
+      state: present

@@ -1,14 +1,14 @@
 const express = require("express")
 const router = express.Router()
-
+const { protect } = require('../middleware/auth');
 const { postToDo, getToDo, deleteToDo } = require('../controller/todoController')
 
 
-router.post('/to-do', postToDo)
+router.post('/to-do', protect, postToDo)
 
-router.get('/to-do', getToDo)
+router.get('/to-do',protect, getToDo)
 
-router.delete("/delete/to-do/:_id", deleteToDo)
+router.delete("/delete/to-do/:_id",protect, deleteToDo)
 
 
 

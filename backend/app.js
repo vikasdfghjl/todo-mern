@@ -3,6 +3,7 @@ const { urlencoded } = require("express");
 const cors = require('cors');
 const dotenv = require('dotenv').config()
 const path = require("path")
+const { protect } = require('./middleware/auth');
 const connectDB = require('./config/db')
 const PORT = process.env.PORT || 4000
 
@@ -25,6 +26,8 @@ app.use(express.urlencoded({ extended: false }))
 
 
 app.use('/api', require('./routes/todoRoutes'))
+app.use('/api/users', require('./routes/userRoutes'));
+
 
 app.listen(PORT, () => {
     console.log(`Server is Listening on Port ${PORT}`);
