@@ -1,21 +1,32 @@
-// backend/models/user.js
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
+
+const todoSchema = new mongoose.Schema({
+    todo: {
+        type: String,
+        required: true,
+    },
+    completed: {
+        type: Boolean,
+        default: false,
+    },
+});
 
 const userSchema = mongoose.Schema({
     name: {
         type: String,
-        required: true
+        required: true,
     },
     email: {
         type: String,
         required: true,
-        unique: true
+        unique: true,
     },
     password: {
         type: String,
-        required: true
-    }
+        required: true,
+    },
+    todos: [todoSchema],
 });
 
 userSchema.methods.matchPassword = async function (enteredPassword) {

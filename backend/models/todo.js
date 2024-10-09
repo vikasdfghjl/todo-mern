@@ -6,9 +6,13 @@ const ToDoSchema = new mongoose.Schema({
         required: true,
     },
     user: {
-        type: mongoose.Schema.Types.ObjectId, // Use ObjectId for referencing user
-        required: true, // Make this field required
-        ref: 'User' // Ensure to use the correct model name for the User
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: 'User'
+    },
+    completed: {
+        type: Boolean,
+        default: false
     }
 });
 

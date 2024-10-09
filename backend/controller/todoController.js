@@ -1,82 +1,83 @@
 const asyncHandler = require('express-async-handler');
-const ToDoModel = require("../models/todo");
+const User = require('../models/user');
 
-// Function to create a new To-Do
-const postToDo = asyncHandler(async (req, res) => {
-    try {
-        const { todo } = req.body;
-
-        // Validate input
-        if (!todo || todo.trim() === "") {
-            return res.status(400).json({ message: "To-Do item cannot be empty" });
-        }
-
-        // Create a new To-Do item associated with the authenticated user
-        const newToDo = await ToDoModel.create({
-            todo,
-            user: req.user.id // Store the user ID of the creator
-        });
-
-        res.status(201).json(newToDo); // Return the created To-Do item
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: "Error creating To-Do item" });
-    }
-});
-
-// Function to fetch all To-Dos for the authenticated user with pagination
+// @desc    Get all todos
+// @route   GET /api/to-do
+// @access  Private
 const getToDo = asyncHandler(async (req, res) => {
-  try {
-      const page = parseInt(req.query.page) || 1;
-      const limit = parseInt(req.query.limit) || 10;
-      const skip = (page - 1) * limit;
-
-      // Fetch To-Do items specific to the authenticated user with pagination
-      const allToDo = await ToDoModel.find({ user: req.user.id })
-          .skip(skip)
-          .limit(limit)
-          .exec();
-
-      const total = await ToDoModel.countDocuments({ user: req.user.id });
-
-      if (!allToDo || allToDo.length === 0) {
-          return res.status(404).json({ message: "No To-Do items found" });
-      }
-
-      res.json({
-          todos: allToDo,
-          total,
-          page,
-          pages: Math.ceil(total / limit),
-      });
-  } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: "Error fetching To-Do items" });
-  }
-});
-
-// Function to delete a To-Do by ID
-const deleteToDo = asyncHandler(async (req, res) => {
-    try {
-        const { _id } = req.params;
-
-        // Validate input
-        if (!_id) {
-            return res.status(400).json({ message: "To-Do item ID is required" });
-        }
-
-        // Check if the To-Do belongs to the authenticated user
-        const deletedToDo = await ToDoModel.findOneAndDelete({ _id, user: req.user.id });
-
-        if (!deletedToDo) {
-            return res.status(404).json({ message: "To-Do item not found or not authorized" });
-        }
-
-        res.json({ message: "To-Do item deleted successfully" });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: "Error deleting To-Do item" });
+    const user = await User.findById(req.user.id);
+    if (user) {
+        res.json(user.todos);
+    } else {
+        res.status(404).json({ message: 'User not found' });
     }
 });
 
-module.exports = { postToDo, getToDo, deleteToDo };
+// @desc    Create a new todo
+// @route   POST /api/to-do
+// @access  Private
+const postToDo = asyncHandler(async (req, res) => {
+    const { todo } = req.body;
+    const user = await User.findById(req.user.id);
+
+    if (user) {
+        const newTodo = { todo, completed: false };
+        user.todos.push(newTodo);
+        await user.save();
+        res.status(201).json(newTodo);
+    } else {
+        res.status(404).json({ message: 'User not found' });
+    }
+});
+
+// @desc    Update a todo
+// @route   PATCH /api/to-do/:id
+// @access  Private
+const updateToDo = asyncHandler(async (req, res) => {
+    const user = await User.findById(req.user.id);
+
+    if (user) {
+        const todo = user.todos.id(req.params.id);
+        if (todo) {
+            todo.todo = req.body.todo || todo.todo;
+            todo.completed = req.body.completed !== undefined ? req.body.completed : todo.completed;
+            await user.save();
+            res.json(todo);
+        } else {
+            res.status(404).json({ message: 'Todo not found' });
+        }
+    } else {
+        res.status(404).json({ message: 'User not found' });
+    }
+});
+
+// @desc    Delete a todo
+// @route   DELETE /api/delete/to-do/:id
+// @access  Private
+const deleteToDo = asyncHandler(async (req, res) => {
+    // Find the user based on the authenticated user ID
+    const user = await User.findById(req.user.id);
+    console.log('Request Params:', req.params); // Log the request parameters
+
+    if (user) {
+        // Find the todo item by its unique ID
+        const todo = user.todos.id(req.params._id);
+
+        if (todo) {
+            // Remove the todo from the array
+            todo.remove();
+            // Save the user document
+            await user.save();
+            return res.json({ message: 'Todo removed' });
+        } else {
+            return res.status(404).json({ message: 'Todo not found' });
+        }
+    } else {
+        return res.status(404).json({ message: 'User not found' });
+    }
+});
+
+
+
+
+module.exports = { getToDo, postToDo, updateToDo, deleteToDo };
