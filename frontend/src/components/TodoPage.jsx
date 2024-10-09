@@ -1,4 +1,5 @@
 import React from 'react';
+import { v4 as uuidv4 } from 'uuid'; // Import uuid for generating unique keys
 import axiosInstance from '../services/axiosInstance';
 import PrivateRoute from '../components/PrivateRoute';
 
@@ -10,16 +11,23 @@ const TodoPage = ({ userName, handleLogout, handleCreate, todos, newTodo, setNew
                 Authorization: `Bearer ${localStorage.getItem('token')}`
             }
         })
-        .then(response => {
-            setTodos(todos.map(todo => (todo._id === id ? response.data : todo)));
-        })
-        .catch(error => {
-            console.error('Error updating todo:', error);
-        });
+            .then(response => {
+                setTodos(todos.map(todo => (todo._id === id ? response.data : todo)));
+            })
+            .catch(error => {
+                console.error('Error updating todo:', error);
+            });
     };
 
     const handleDelete = (id) => {
-        console.log('Todo ID:', id);
+        if (!id) {
+            console.error('Invalid todo ID:', id);
+            return; // Early exit if ID is undefined
+        }
+    
+        console.log('Deleting Todo ID:', id);
+        console.log('Current todos:', todos); // Log current todos before deletion
+    
         axiosInstance.delete(`/delete/to-do/${id}`, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`
@@ -27,11 +35,14 @@ const TodoPage = ({ userName, handleLogout, handleCreate, todos, newTodo, setNew
         })
         .then(() => {
             setTodos(todos.filter(todo => todo._id !== id));
+            console.log(`Deleted Todo ID: ${id}`); // Log successful deletion
         })
         .catch(error => {
             console.error('Error deleting todo:', error);
         });
     };
+    
+
 
     return (
         <PrivateRoute>
@@ -56,7 +67,7 @@ const TodoPage = ({ userName, handleLogout, handleCreate, todos, newTodo, setNew
                         <li className="text-gray-500">No data available</li>
                     ) : (
                         todos.map(todo => (
-                            <li key={todo._id} className="flex justify-between items-center">
+                            <li key={todo._id || uuidv4()} className="flex justify-between items-center">
                                 <label>
                                     <input
                                         type="checkbox"
@@ -65,13 +76,13 @@ const TodoPage = ({ userName, handleLogout, handleCreate, todos, newTodo, setNew
                                     />
                                     {todo.todo}
                                 </label>
-                                <button 
+                                <button
                                     onClick={() => {
                                         const confirmDelete = window.confirm("Are you sure you want to delete this todo?");
                                         if (confirmDelete) {
-                                            handleDelete(todo._id);
+                                            handleDelete(todo._id); // Ensure todo._id is valid here
                                         }
-                                    }} 
+                                    }}
                                     className="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-700 transition duration-300"
                                 >
                                     Delete
